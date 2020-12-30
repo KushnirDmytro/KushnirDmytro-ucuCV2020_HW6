@@ -178,12 +178,68 @@ For further investigation the #epoch = 50 seems the most reasonable.
 <!--- ###################################################### --->
 
 
-# [e0002] \#Deploy2. Advance: add gpu support.
+# [e0004] \#Deploy2. Rewrite code, prepare metrics and visualisations.
 
-# [e0002] \#Debug
+Iterating with experiments requires data track through the training process, so we need to define the framework in advance, to save the costs on transforming it later.
 
-We see that loss drops dramatically, source of bug is pretty obvious: it is conserned with loss sheduler
-Difference with orignal tuto
+## Deliverables
+
+- [x] Wrap eval procedures, init routines into dedicated functions
+- [x] Chained calls to provide integral training pipeline
+
+(All relates to `/notebooks/practiceModel.ipynb`)
+- [x] Following the advices from assignment added more logging levels:
+  - Loss/Epoch
+  - TestAccuracy/Epoch & TrainAccuracy/Epoch: combined in a single file.
+- [x] Replace tracking of per-batch loss by running loss
+- [X] Log-names replaced with Human-readable timestamps
+
+- [x] Replaced bare logging with tqdm visualization, add custom tags and descriptions (Saves space for the larger number of iterations)
+![progressbars](fig/e0004_progressbars.gif?ra=true "progressbars")
+(something went wrong with visualized scale, but with all libraries around it, this is a minor issue)
+
+## Conclusion
+With updated model we now can shchedule experiments and iterate faset.
+
+# [e0003] \#Debug2 + code/model revision
+
+Code model can have potential bugs, so we need to revise it rigorously before continuing in order to secure our
+future work.
+
+# Observation & Changes:
+
+Found out that model visualization has loops in computation graphs:
+
+![Initial model with loops](fig/e0001_2_graph.gif?ra=true "Initial model with loops") ==> 
+![Initial model without loops](fig/e0002_fixed_graph.gif?ra=true "Initial model without loops")
+
+MaxPool layer is reused in model declaration. It does not contain trainable parameter, but
+we consider that it is better to transform it into canonical view.
+
+Instead of one 'pool' layer we add 'pool1' and 'pool2'. Graph became acyclic.
+
+### Performance
+Training time [cpu]: ~ 4 min. (5 epochs)
+
+Accuracy [val]:    61.0 %
+
+## Deliverables
+
+- [x] updated notebooks
+  - `/notebooks/practiceModel.ipynb` - for each max pooling operation add dedicated layer
+
+## Interpretation & Conclusion 
+
+| experiments |     diff           | accuracy     |
+|-------------|--------------------|--------------|
+|e0002        |#'pool' and 'pool'  |    61.0 %    |
+|e0003        |#'pool1' and 'pool2'|    61.02%    |
+
+Our changes preseved model properties, nothing is broken. Code is prepearing for future experiments iterations.
+
+# [e0002] \#Dubug
+
+We see that loss drops dramatically, source of bug is pretty obvious: it is conserned with loss sheduler.
 
 ## Motivation
 
@@ -200,6 +256,13 @@ Accuracy [val]:    61.0 %
 
 - [x] updated notebooks
   - `/notebooks/practiceModel.ipynb` - fixed the issue with incorrect loss sceduler
+
+## Interpretation
+
+As we have similar notebooks, models seem valid, parameter altering does not give results, - then one with problem has some bug.
+
+![Loss vs Epoch](fig/e0002_loss.gif?ra=true "Loss vs Epoch")
+
 # [e0001] \#Deploy
 <!-- Training LeNet-like model on cifar-10 dataset -->
 
