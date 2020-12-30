@@ -37,11 +37,11 @@ as mobile devices, FPGA, low-power boards, far 'edge' autonomous devices used in
 can tackle this problem, but will met different limitations on their own.
 
  ## Plan
-    ### deploy
-    ### debug
-    ### achieve saturation-state
-    ### investigate how to acive the same saturation satate in minimal clock-time
-    ### observe the irony, as deadline came and no time left...
+    + Deploy
+    + Debug
+    + Achieve saturation-state
+    +- Investigate how to acive the same saturation satate in minimal clock-time
+    ++++ Observe the irony, as deadline came and no time left...
 
 # Experiemnt jornal
 
@@ -51,7 +51,8 @@ can tackle this problem, but will met different limitations on their own.
 
 ![e13_15](fig/13_15.gif?ra=true "13_15")
 
-| experiments|     diff          
+| experiments|     diff       
+|------------|-----------------------------------------   
 |e0013      | initLR=0.01, update:10, gamma:0.1, momentum:0.9
 |e0014      | initLR=0.05, update:10, gamma:0.1, momentum:0.9
 |e0015      | initLR=0.02, update:5, gamma:0.3, momentum:0.9
@@ -74,11 +75,12 @@ Experiments should continue, but problem is manageble to solve in 2-3 minutes by
 BS - batch size
 it - iterations
 
-| experiments|     diff          
-|e0010      |# BS=512, cosnt initLR = 1e-3,     
-|e0011      |# BS=2048, const initLR = 1e-3,         
-|e0012      |# BS=2048, initLR=0.1, update:10, gamma:0.1, momentum:0.9 
-|e0013      |# BS=2048, initLR=0.01, update:10, gamma:0.1, momentum:0.9
+| experiments|     diff                                              |
+|------------|-------------------------------------------------------|        
+|e0010      | BS=512, cosnt initLR = 1e-3,     
+|e0011      | BS=2048, const initLR = 1e-3,         
+|e0012      | BS=2048, initLR=0.1, update:10, gamma:0.1, momentum:0.9 
+|e0013      | BS=2048, initLR=0.01, update:10, gamma:0.1, momentum:0.9
 
 ## Conclusion
 
@@ -122,11 +124,11 @@ e0007: try to run computations on CUDA, compare if performance and problems rema
 BS - batch size
 it - iterations
 
-| experiments |     diff           |  Training time  |  TestAcc best/final  | val_acc (max)    |
-|-------------|--------------------|-----------------|-------------------------
-|e0005        |# BS=16, it=20      |    13m43s       |      65.9/63.77      | 78.15       |
-|e0006        |# BS=32, it=30      |    18m59s       |      63.2/64.79      | 83.86       |
-|e0007        |# BS=32, it=30, CUDA|    12m51s       |      64.0/65.03      | 84.04       |
+| experiments |     diff           |  Training time  |  TestAcc best/final  | val_acc (max)|
+|-------------|--------------------|-----------------|----------------------|-------------
+|e0005        |BS=16, it=20      |    13m43s       |      65.9/63.77      | 78.15       |
+|e0006        |BS=32, it=30      |    18m59s       |      63.2/64.79      | 83.86       |
+|e0007        |BS=32, it=30, CUDA|    12m51s       |      64.0/65.03      | 84.04       |
 
 ![5_6_7](fig/e0005_e0006_e0007.gif?ra=true "5_6_7")
 
