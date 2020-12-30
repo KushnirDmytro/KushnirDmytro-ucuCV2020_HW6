@@ -180,11 +180,26 @@ For further investigation the #epoch = 50 seems the most reasonable.
 
 # [e0002] \#Deploy2. Advance: add gpu support.
 
-# [e0003] \#Debug
+# [e0002] \#Debug
 
 We see that loss drops dramatically, source of bug is pretty obvious: it is conserned with loss sheduler
 Difference with orignal tuto
 
+## Motivation
+
+Find the bug in current setting to continue work
+
+## Description
+
+### Performance
+Training time [cpu]: ~ 4 min. (5 epochs)
+
+Accuracy [val]:    61.0 %
+
+## Deliverables
+
+- [x] updated notebooks
+  - `/notebooks/practiceModel.ipynb` - fixed the issue with incorrect loss sceduler
 # [e0001] \#Deploy
 <!-- Training LeNet-like model on cifar-10 dataset -->
 
@@ -203,13 +218,9 @@ Accuracy [val]: 9.27 % (worse than random guess)
 
 ## Deliverables
 
-- [x] updated notebook
-  - `/notebook/expr_analysis.py`
-  
-## Notes
-
-- `/notebooks/cifar10_tutorial.ipynb` works and produce meaningfull results
-- `/notebooks/practiceModel.ipynb` launches, but loss function does not decrease fall as expected
+- [x] added notebooks
+  - `/notebooks/cifar10_tutorial.ipynb` works and produce meaningfull results, leave commented code to deploy missing libs
+  - `/notebooks/practiceModel.ipynb` launches, but loss function does not fall as expected
 
 ## Interpretation
 
